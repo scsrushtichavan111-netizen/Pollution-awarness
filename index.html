@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pollution Awareness Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">🌍 Eco<span>Watch</span></div>
+
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#pollutants">Pollutants</a>
+      <a href="#tips">Awareness</a>
+    </nav>
+
+    <button id="themeBtn">🌙</button>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <p class="subtitle">POLLUTION AWARENESS DASHBOARD</p>
+        <h1>Monitor the air.<br><span>Protect the future.</span></h1>
+        <p>
+          Understand air quality, track pollution levels and learn
+          how small actions can create a cleaner planet.
+        </p>
+
+        <button class="primary-btn" onclick="scrollToDashboard()">
+          View Air Quality
+        </button>
+      </div>
+
+      <div class="earth">
+        🌎
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="section">
+
+      <div class="section-title">
+        <div>
+          <p class="subtitle">LIVE OVERVIEW</p>
+          <h2>Air Quality Dashboard</h2>
+        </div>
+
+        <select id="citySelect">
+          <option value="Mumbai">Mumbai</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Pune">Pune</option>
+          <option value="Bengaluru">Bengaluru</option>
+        </select>
+      </div>
+
+      <!-- Main AQI -->
+      <div class="dashboard-grid">
+
+        <div class="aqi-card">
+          <div class="card-header">
+            <span>Air Quality Index</span>
+            <span class="status-dot"></span>
+          </div>
+
+          <div class="aqi-number" id="aqiValue">78</div>
+          <div class="aqi-status" id="aqiStatus">Moderate</div>
+
+          <div class="aqi-meter">
+            <div id="aqiProgress"></div>
+          </div>
+
+          <p>
+            Air quality is acceptable, but sensitive people
+            should consider reducing prolonged outdoor activity.
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <div class="icon">🌡️</div>
+          <h3>Temperature</h3>
+          <strong id="temperature">29°C</strong>
+          <p>Feels like 31°C</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="icon">💧</div>
+          <h3>Humidity</h3>
+          <strong id="humidity">68%</strong>
+          <p>Moderate humidity</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="icon">💨</div>
+          <h3>Wind Speed</h3>
+          <strong id="wind">14 km/h</strong>
+          <p>From the West</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Pollutants -->
+    <section id="pollutants" class="section">
+
+      <div class="section-title">
+        <div>
+          <p class="subtitle">POLLUTANT LEVELS</p>
+          <h2>What's in the Air?</h2>
+        </div>
+      </div>
+
+      <div class="pollutants-grid">
+
+        <div class="pollutant-card">
+          <div class="pollutant-top">
+            <span>PM2.5</span>
+            <span class="badge moderate">Moderate</span>
+          </div>
+          <strong>35 <small>µg/m³</small></strong>
+          <div class="pollution-bar">
+            <span style="width: 55%"></span>
+          </div>
+          <p>Fine particles that can penetrate deep into the lungs.</p>
+        </div>
+
+        <div class="pollutant-card">
+          <div class="pollutant-top">
+            <span>PM10</span>
+            <span class="badge good">Good</span>
+          </div>
+          <strong>48 <small>µg/m³</small></strong>
+          <div class="pollution-bar">
+            <span style="width: 40%"></span>
+          </div>
+          <p>Particles from dust, construction and road traffic.</p>
+        </div>
+
+        <div class="pollutant-card">
+          <div class="pollutant-top">
+            <span>NO₂</span>
+            <span class="badge moderate">Moderate</span>
+          </div>
+          <strong>31 <small>ppb</small></strong>
+          <div class="pollution-bar">
+            <span style="width: 48%"></span>
+          </div>
+          <p>Mostly produced by vehicles and fuel combustion.</p>
+        </div>
+
+        <div class="pollutant-card">
+          <div class="pollutant-top">
+            <span>CO</span>
+            <span class="badge good">Good</span>
+          </div>
+          <strong>0.7 <small>ppm</small></strong>
+          <div class="pollution-bar">
+            <span style="width: 25%"></span>
+          </div>
+          <p>A colorless gas produced by incomplete combustion.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Chart -->
+    <section class="section chart-section">
+
+      <div class="section-title">
+        <div>
+          <p class="subtitle">7 DAY HISTORY</p>
+          <h2>Pollution Trend</h2>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="pollutionChart"></canvas>
+      </div>
+
+    </section>
+
+    <!-- Awareness -->
+    <section id="tips" class="section awareness">
+
+      <div class="section-title">
+        <div>
+          <p class="subtitle">TAKE ACTION</p>
+          <h2>Build a Cleaner Future</h2>
+        </div>
+      </div>
+
+      <div class="tips-grid">
+
+        <div class="tip">
+          <span>🚲</span>
+          <h3>Choose Clean Transport</h3>
+          <p>
+            Walk, cycle or use public transport whenever possible
+            to reduce vehicle emissions.
+          </p>
+        </div>
+
+        <div class="tip">
+          <span>🌳</span>
+          <h3>Plant More Trees</h3>
+          <p>
+            Trees absorb carbon dioxide and help improve
+            the quality of our environment.
+          </p>
+        </div>
+
+        <div class="tip">
+          <span>♻️</span>
+          <h3>Reduce Waste</h3>
+          <p>
+            Reuse products, recycle materials and avoid
+            unnecessary single-use plastics.
+          </p>
+        </div>
+
+        <div class="tip">
+          <span>⚡</span>
+          <h3>Save Energy</h3>
+          <p>
+            Turn off unused appliances and choose
+            energy-efficient solutions.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Every Breath Matters.</h2>
+      <p>
+        Cleaner air starts with awareness and action.
+      </p>
+      <button class="primary-btn" onclick="showMessage()">
+        Join the Movement
+      </button>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 EcoWatch • Pollution Awareness Dashboard</p>
+    <p>🌱 Small actions. Big impact.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
